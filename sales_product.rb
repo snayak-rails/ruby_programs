@@ -1,11 +1,18 @@
 module ProductType
 
+  NON_TAX_ITEMS = ["book", "chocolate", "chocolates", "pills"]
+
   def is_imported_item(product_order)
     return product_order.include?("imported")
   end
 
   def is_non_tax_item(product_order)
-    return (product_order.include?("book") || product_order.include?("chocolate") || product_order.include?("chocolates") || product_order.include?("pills"))
+    NON_TAX_ITEMS.each do |item|
+      if product_order.include?(item)
+        return true
+      end
+    end
+    return false
   end
 
   def is_imported_and_non_tax_item(product_order)
@@ -72,9 +79,11 @@ class SalesProduct
     return total_tax.round(2)
   end
 
-  def SalesProduct.calculate_result(orders, checked_out_orders)
-    orders.each do |product_order|
+  def SalesProduct.calculate_result(orders)
+    checked_out_orders = Array.new
 
+    orders.each do |product_order|
+      
       shelf_price = (product_order.split(" "))[-1].to_f
       item = SalesProduct.new(shelf_price)
 
@@ -103,7 +112,6 @@ end
 for i in 1..3
     
   orders = Array.new
-  checked_out_orders = Array.new
 
   puts "Input #{i}:"
   while(true)
@@ -115,7 +123,7 @@ for i in 1..3
     end
   end
 
-  checked_out_orders = SalesProduct.calculate_result(orders, checked_out_orders)
+  checked_out_orders = SalesProduct.calculate_result(orders)
 
   puts "Output #{i}:"
   for i in 1..orders.length
