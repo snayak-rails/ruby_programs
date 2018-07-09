@@ -79,7 +79,7 @@ class SalesProduct
       item = SalesProduct.new(shelf_price)
 
       if item.is_imported_and_non_taxable(product_order)
-        item.calculate_tax(IMPORT_TAX_PERCENTAGE)
+        item.calculate_tax(IMPORT_TAX_PERCENTAGE + NON_TAX_ITEM_TAX_PERCENTAGE)
       
       elsif item.is_imported_item(product_order)
         item.calculate_tax(BASIC_TAX_PERCENTAGE + IMPORT_TAX_PERCENTAGE)
