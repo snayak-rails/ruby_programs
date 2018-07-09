@@ -8,7 +8,7 @@ module ProductType
     return (product_order.include?("book") || product_order.include?("chocolate") || product_order.include?("chocolates") || product_order.include?("pills"))
   end
 
-  def is_imported_and_non_taxable(product_order)
+  def is_imported_and_non_tax_item(product_order)
     return is_imported_item(product_order) && is_non_tax_item(product_order)
   end
   
@@ -78,7 +78,7 @@ class SalesProduct
       shelf_price = (product_order.split(" "))[-1].to_f
       item = SalesProduct.new(shelf_price)
 
-      if item.is_imported_and_non_taxable(product_order)
+      if item.is_imported_and_non_tax_item(product_order)
         item.calculate_tax(IMPORT_TAX_PERCENTAGE + NON_TAX_ITEM_TAX_PERCENTAGE)
       
       elsif item.is_imported_item(product_order)
