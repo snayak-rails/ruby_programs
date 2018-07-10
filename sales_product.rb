@@ -2,21 +2,21 @@ module ProductType
 
   NON_TAX_ITEMS = ["book", "chocolate", "chocolates", "pills"]
 
-  def is_imported_item(product_order)
-    return product_order.include?("imported")
+  def is_imported_item(order_item)
+    return order_item.include?("imported")
   end
 
-  def is_non_tax_item(product_order)
+  def is_non_tax_item(order_item)
     NON_TAX_ITEMS.each do |item|
-      if product_order.include?(item)
+      if order_item.include?(item)
         return true
       end
     end
     return false
   end
 
-  def is_imported_and_non_tax_item(product_order)
-    return is_imported_item(product_order) && is_non_tax_item(product_order)
+  def is_imported_and_non_tax_item(order_item)
+    return is_imported_item(order_item) && is_non_tax_item(order_item)
   end
   
 end
@@ -63,17 +63,17 @@ class SalesProduct
     (self.shelf_price + self.sales_tax).round(2)
   end
 
-  def SalesProduct.calculate_total_price(all_products_array)
+  def SalesProduct.calculate_total_price(checked_out_orders)
     total_price = 0
-    all_products_array.each do |item|
+    checked_out_orders.each do |item|
         total_price += (item.shelf_price + item.sales_tax)
     end
     return total_price.round(2)
   end
 
-  def SalesProduct.calculate_total_tax(all_products_array)
+  def SalesProduct.calculate_total_tax(checked_out_orders)
     total_tax = 0
-    all_products_array.each do |item|
+    checked_out_orders.each do |item|
         total_tax += item.sales_tax
     end
     return total_tax.round(2)
@@ -82,18 +82,18 @@ class SalesProduct
   def SalesProduct.calculate_result(orders)
     checked_out_orders = Array.new
 
-    orders.each do |product_order|
+    orders.each do |order_item|
       
-      shelf_price = (product_order.split(" "))[-1].to_f
+      shelf_price = (order_item.split(" "))[-1].to_f
       item = SalesProduct.new(shelf_price)
 
-      if item.is_imported_and_non_tax_item(product_order)
+      if item.is_imported_and_non_tax_item(order_item)
         item.calculate_tax(IMPORT_TAX_PERCENTAGE + NON_TAX_ITEM_TAX_PERCENTAGE)
       
-      elsif item.is_imported_item(product_order)
+      elsif item.is_imported_item(order_item)
         item.calculate_tax(BASIC_TAX_PERCENTAGE + IMPORT_TAX_PERCENTAGE)
 
-      elsif item.is_non_tax_item(product_order)
+      elsif item.is_non_tax_item(order_item)
         item.calculate_tax(NON_TAX_ITEM_TAX_PERCENTAGE)
 
       else
@@ -115,11 +115,11 @@ for i in 1..3
 
   puts "Input #{i}:"
   while(true)
-    product_order = gets.chomp
-    if product_order == ""
+    order_item = gets.chomp
+    if order_item == ""
         break
     else
-        orders.push(product_order)
+        orders.push(order_item)
     end
   end
 
