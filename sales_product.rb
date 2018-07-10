@@ -133,7 +133,7 @@ for i in 1..3
 
   puts "Output #{i}:"
   for i in 1..orders.length
-    print "#{orders[i-1].slice(0, orders[i-1].length - 8)}: #{checked_out_orders[i-1].calculate_item_price}\n"
+    print "#{orders[i-1].split("at")[0]}: #{checked_out_orders[i-1].calculate_item_price}\n"
   end
 
   puts "Sales Tax: #{SalesProduct.calculate_total_tax(checked_out_orders)}"
