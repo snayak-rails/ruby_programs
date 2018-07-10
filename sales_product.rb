@@ -1,6 +1,6 @@
 module ProductType
 
-  NON_TAX_ITEMS = ["book", "chocolate", "chocolates", "pills"]
+  NON_TAX_ITEMS = ["book", "books", "chocolate", "chocolates", "pill", "pills"]
 
   def is_imported_item(order_item)
     return order_item.include?("imported")
@@ -53,8 +53,8 @@ class SalesProduct
     return sales_tax.round(2)
   end
 
-  def calculate_tax(tax_percentage)
-    initial_sales_tax = (tax_percentage * self.shelf_price)/100.0
+  def calculate_tax(item_quantity, tax_percentage)
+    initial_sales_tax = (item_quantity * tax_percentage * self.shelf_price)/100.0
     final_sales_tax = round_off_tax(initial_sales_tax)
     self.sales_tax = final_sales_tax
   end
@@ -87,17 +87,23 @@ class SalesProduct
       shelf_price = (order_item.split(" "))[-1].to_f
       item = SalesProduct.new(shelf_price)
 
+      item_quantity = (order_item.split(" "))[0].to_f
+
       if item.is_imported_and_non_tax_item(order_item)
-        item.calculate_tax(IMPORT_TAX_PERCENTAGE + NON_TAX_ITEM_TAX_PERCENTAGE)
+        tax_percentage = IMPORT_TAX_PERCENTAGE + NON_TAX_ITEM_TAX_PERCENTAGE
+        item.calculate_tax(item_quantity, tax_percentage)
       
       elsif item.is_imported_item(order_item)
-        item.calculate_tax(BASIC_TAX_PERCENTAGE + IMPORT_TAX_PERCENTAGE)
+        tax_percentage = BASIC_TAX_PERCENTAGE + IMPORT_TAX_PERCENTAGE
+        item.calculate_tax(item_quantity, tax_percentage)
 
       elsif item.is_non_tax_item(order_item)
-        item.calculate_tax(NON_TAX_ITEM_TAX_PERCENTAGE)
+        tax_percentage = NON_TAX_ITEM_TAX_PERCENTAGE
+        item.calculate_tax(item_quantity, tax_percentage)
 
       else
-        item.calculate_tax(BASIC_TAX_PERCENTAGE)
+        tax_percentage = BASIC_TAX_PERCENTAGE
+        item.calculate_tax(item_quantity, tax_percentage)
       end
 
       checked_out_orders.push(item)
