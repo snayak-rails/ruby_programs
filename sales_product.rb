@@ -92,20 +92,18 @@ class SalesProduct
 
       if item.is_imported_and_non_tax_item(order_item)
         tax_percentage = IMPORT_TAX_PERCENTAGE + NON_TAX_ITEM_TAX_PERCENTAGE
-        item.calculate_tax(tax_percentage)
       
       elsif item.is_imported_item(order_item)
         tax_percentage = BASIC_TAX_PERCENTAGE + IMPORT_TAX_PERCENTAGE
-        item.calculate_tax(tax_percentage)
 
       elsif item.is_non_tax_item(order_item)
         tax_percentage = NON_TAX_ITEM_TAX_PERCENTAGE
-        item.calculate_tax(tax_percentage)
 
       else
         tax_percentage = BASIC_TAX_PERCENTAGE
-        item.calculate_tax(tax_percentage)
       end
+
+      item.calculate_tax(tax_percentage)
 
       checked_out_orders.push(item)
 
