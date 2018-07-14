@@ -1,3 +1,3 @@
-for i in 1..100
-    print "#{i} "
+for element in 1..100
+    print "#{element} "
 end
