@@ -1,16 +1,16 @@
 require "csv"
 
-x = Array[]
+read_rows = Array[]
 
 CSV.open("CsvFiles/csv_file.csv", "r") do |csv|
     csv.each do |row|
-        x.push(row)
+        read_rows.push(row)
         puts "#{row}"
     end
 end
 
 CSV.open("CsvFiles/csv_file.csv", "a+") do |csv|
-    x.each do |i|
+    read_rows.each do |i|
         csv << i
     end
 end

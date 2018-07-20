@@ -1,5 +1,5 @@
-arr1 = Array[1,2,3,4,5]
+input = Array[1,2,3,4,5]
 
-x = arr1.map {|element| element * 2}
+input_doubled = input.map {|element| element * 2}
 
-puts "#{x}"
+puts "#{input_doubled}"

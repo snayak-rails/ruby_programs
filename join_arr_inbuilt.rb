@@ -1,6 +1,6 @@
-arr1 = Array[1,2,3,4,5]
-arr2 = Array[6,7,8,9,10]
+input1 = Array[1,2,3,4,5]
+input2 = Array[6,7,8,9,10]
 
-arr3 = arr1 + arr2
+concated_output = input1 + input2
 
-puts "#{arr3}"
+puts "#{concated_output}"

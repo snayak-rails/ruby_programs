@@ -1,16 +1,16 @@
-arr1 = Array['a','b','c','a','d','b','c','c']
-puts "#{arr1}"
+input = Array['a','b','c','a','d','b','c','c']
+puts "#{input}"
 
-freq_hash = Hash.new("NA")
+char_count = Hash.new("NA")
 
-arr1.each do |item|
-    if freq_hash[item] == "NA"
-        freq_hash[item] = 1
+input.each do |character|
+    if char_count[character] == "NA"
+        char_count[character] = 1
     else
-        freq_hash[item] += 1
+        char_count[character] += 1
     end
 end
 
-freq_hash.each do |key, value|
-    puts "#{key} : #{value}"
+char_count.each do |character, count|
+    puts "#{character} : #{count}"
 end

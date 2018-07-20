@@ -1,5 +1,5 @@
-arr1 = [1,2,3,'a','b',4,5]
+input = [1,2,3,'a','b',4,5]
 
-x = arr1.map {|elem| (elem.is_a? Numeric) ? elem*2 : "not_a_number"}
+input_doubled = input.map {|elem| (elem.is_a? Numeric) ? elem*2 : "not_a_number"}
 
-puts "#{x}"
+puts "#{input_doubled}"
