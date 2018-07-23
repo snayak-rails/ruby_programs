@@ -3,7 +3,9 @@ require_relative 'invoice'
 require_relative 'user_input'
 
 class SalesTax
-  include ProductType, Invoice, UserInput
+  include ProductType
+  include Invoice
+  include UserInput
 
   IMPORT_TAX_PERCENTAGE = 5
   BASIC_TAX_PERCENTAGE = 10
@@ -19,7 +21,7 @@ class SalesTax
     @sales_tax
   end
 
-  def round_off_tax(sales_tax)
+  def round_two_precision5(sales_tax)
     (sales_tax * 20.0).round / 20.0
   end
 
@@ -37,7 +39,7 @@ class SalesTax
 
   def calculate_tax(tax_percentage)
     initial_sales_tax = (@quantity * tax_percentage * @shelf_price) / 100.0
-    final_sales_tax = round_off_tax(initial_sales_tax)
+    final_sales_tax = round_two_precision5(initial_sales_tax)
     @sales_tax = final_sales_tax
   end
 
