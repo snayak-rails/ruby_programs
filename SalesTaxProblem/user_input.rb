@@ -1,24 +1,45 @@
+# module UserInput : helper methods for getting user input and validation
 module UserInput
-  def self.get_orders
-    orders = []
+  def read_unformatted_orders
+    unformatted_orders = []
     puts 'Input :'
     while true
       order_item = gets.chomp
       break if order_item == ''
-      unless order_item.split(' ')[0].integer?
-        puts 'Enter an integer as quantity: '
-        redo
-      end
-      unless order_item.split(' ')[-1].numeric?
-        puts 'Enter a numeric value as the shelf price: '
-        redo
-      end
-      orders.push(order_item)
+      order_item = check_order_quantity_integer?(order_item)
+      order_item = check_order_price_numeric?(order_item)
+      order_item = check_order_description?(order_item)
+      unformatted_orders.push(order_item)
     end
-    orders
+    unformatted_orders
+  end
+
+  def check_order_quantity_integer?(order_item)
+    until order_item.split(' ')[0].integer?
+      puts 'Enter an integer as quantity: '
+      order_item = gets.chomp
+    end
+    order_item
+  end
+
+  def check_order_price_numeric?(order_item)
+    until order_item.split(' ')[-1].numeric?
+      puts 'Enter a numeric value as the shelf price: '
+      order_item = gets.chomp
+    end
+    order_item
+  end
+
+  def check_order_description?(order_item)
+    until order_item.include?(' at ')
+      puts 'Enter proper order description: '
+      order_item = gets.chomp
+    end
+    order_item
   end
 end
 
+# override string class for checking integer and numeric user inputs
 class String
   def numeric?
     !Float(self).nil? rescue false
