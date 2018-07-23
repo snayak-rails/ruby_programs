@@ -1,7 +1,7 @@
 # module ProductType : identifies the type of product for
 # an item object of class: SalesTax
 module ProductType
-  NON_TAX_ITEMS = %w[book chocolate pill]
+  NON_TAX_ITEMS = %w[book chocolate pill].freeze
 
   def imported_item?(item_description)
     item_description.include?('imported')

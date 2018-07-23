@@ -2,10 +2,9 @@
 module UserInput
   def read_unformatted_orders
     unformatted_orders = []
+    puts 'Enter X to end input'
     puts 'Input :'
-    while true
-      order_item = gets.chomp
-      break if order_item == ''
+    until (order_item = gets.chomp) == 'X'
       order_item = check_order_quantity_integer?(order_item)
       order_item = check_order_price_numeric?(order_item)
       order_item = check_order_description?(order_item)
@@ -31,7 +30,7 @@ module UserInput
   end
 
   def check_order_description?(order_item)
-    until order_item.include?(' at ')
+    until /\d+ [\w\s]+at/.match(order_item.split(' ')[0...-1].join(' '))
       puts 'Enter proper order description: '
       order_item = gets.chomp
     end
