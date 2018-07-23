@@ -25,11 +25,11 @@ class SalesTax
 
   def calculate_tax_percentage
     if imported_and_non_tax_item?
-      return IMPORT_TAX_PERCENTAGE + NON_TAX_ITEM_TAX_PERCENTAGE
+      IMPORT_TAX_PERCENTAGE + NON_TAX_ITEM_TAX_PERCENTAGE
     elsif imported_item?
-      return BASIC_TAX_PERCENTAGE + IMPORT_TAX_PERCENTAGE
+      BASIC_TAX_PERCENTAGE + IMPORT_TAX_PERCENTAGE
     elsif non_tax_item?
-      return NON_TAX_ITEM_TAX_PERCENTAGE
+      NON_TAX_ITEM_TAX_PERCENTAGE
     else
       BASIC_TAX_PERCENTAGE
     end
