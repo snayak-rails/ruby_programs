@@ -3,7 +3,7 @@ require_relative 'invoice'
 require_relative 'user_input'
 
 class SalesTax
-  include ProductType, Invoice, Userinput
+  include ProductType, Invoice, UserInput
 
   IMPORT_TAX_PERCENTAGE = 5
   BASIC_TAX_PERCENTAGE = 10
