@@ -1,5 +1,5 @@
 module ProductType
-  NON_TAX_ITEMS = ['book', 'chocolate', 'pill']
+  NON_TAX_ITEMS = %w[book chocolate pill]
 
   def imported_item?
     @item_description.include?('imported')
@@ -8,7 +8,7 @@ module ProductType
   def non_tax_item?
     NON_TAX_ITEMS.each do |item_type|
       return true if @item_description.include?(item_type)
-      #return true if @item_description.include?(item_type.pluralize)
+      return true if @item_description.include?(item_type + 's')
     end
     false
   end
