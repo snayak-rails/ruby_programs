@@ -47,8 +47,8 @@ class SalesTaxCalculator
 
   def calculate_result
     orders = []
-    unformatted_orders = read_unformatted_orders
-    unformatted_orders.each do |order_item|
+    order_list = read_input_from_user
+    order_list.each do |order_item|
       item = build_item_hash(order_item)
       calculate_tax(item)
       orders.push(item)

@@ -1,16 +1,16 @@
 # module UserInput : helper methods for getting user input and validation
 module UserInput
-  def read_unformatted_orders
-    unformatted_orders = []
+  def read_input_from_user
+    order_list = []
     puts 'Enter X to end input'
     puts 'Input :'
     until (order_item = gets.chomp) == 'X'
       order_item = check_order_quantity_integer?(order_item)
       order_item = check_order_price_numeric?(order_item)
       order_item = check_order_description?(order_item)
-      unformatted_orders.push(order_item)
+      order_list.push(order_item)
     end
-    unformatted_orders
+    order_list
   end
 
   def check_order_quantity_integer?(order_item)
