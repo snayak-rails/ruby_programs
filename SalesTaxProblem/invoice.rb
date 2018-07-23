@@ -2,7 +2,8 @@ module Invoice
   def self.print_invoice(orders)
     puts "Output :"
     orders.each do |item|
-      puts "#{item.item_description} : #{calculate_item_price(item)}"
+      item_price = (item.shelf_price + item.sales_tax).round(2)
+      puts "#{item.item_description} : #{item_price}"
     end
     total_tax = calculate_total_tax(orders)
     puts "Sales Tax: #{total_tax}"
@@ -24,9 +25,5 @@ module Invoice
       total_tax += item.sales_tax
     end
     total_tax.round(2)
-  end
-
-  def self.calculate_item_price(item)
-    (item.shelf_price + item.sales_tax).round(2)
   end
 end
