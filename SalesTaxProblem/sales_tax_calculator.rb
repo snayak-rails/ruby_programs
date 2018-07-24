@@ -45,7 +45,7 @@ class SalesTaxCalculator
     item[:sales_tax] = final_sales_tax
   end
 
-  def calculate_result
+  def start_calculator
     orders = []
     order_list = read_input_from_user
     order_list.each do |order_item|
@@ -59,5 +59,5 @@ end
 
 3.times do
   sales_tax_calculator = SalesTaxCalculator.new
-  sales_tax_calculator.calculate_result
+  sales_tax_calculator.start_calculator
 end

@@ -14,7 +14,7 @@ module Invoice
   end
 
   def calculate_total_price(orders)
-    total_price = 0
+    total_price = 0.0
     orders.each do |item|
       total_price += (item[:shelf_price] + item[:sales_tax])
     end
@@ -22,7 +22,7 @@ module Invoice
   end
 
   def calculate_total_tax(orders)
-    total_tax = 0
+    total_tax = 0.0
     orders.each do |item|
       total_tax += item[:sales_tax]
     end
